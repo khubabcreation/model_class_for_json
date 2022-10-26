@@ -1,0 +1,108 @@
+class Post {
+  int? id;
+
+  String? name;
+  String? user_name;
+  String? email;
+
+  //here is the class Adress
+  Adress? adress;
+
+  Post(
+      {required this.id,
+      required this.name,
+      required this.user_name,
+      required this.adress,
+      required this.email});
+
+
+
+  Post.fromJson(Map<String,dynamic> postMap){
+    Map<String,dynamic> addressMap = postMap["address"];
+    adress = Adress.fromJson(addressMap);
+    name = postMap["name"];
+    id = postMap["id"];
+    email = postMap["email"];
+    user_name = postMap["username"];
+
+
+  }
+
+}
+
+void main(){
+
+  Post post = Post.fromJson({
+    "id": 1,
+    "name": "Leanne Graham",
+    "username": "Bret",
+    "email": "Sincere@april.biz",
+    "address": {
+            "street":"12",
+            "suite":"gulberg",
+            "city":"HAsilpur",
+            "zipcode":"222222222",
+            "geo":{
+              "lat":"12.3",
+              "lng":"33.4"
+            }
+    }
+  });
+
+  print(post);
+
+}
+
+class Adress {
+  String? street;
+
+  String? suit;
+
+  String? city;
+  String? zipcode;
+
+
+  Geo? geo;
+
+  Adress(
+      {required this.street,
+      required this.suit,
+      required this.city,
+      required this.geo,
+      required this.zipcode});
+
+
+  @override
+  String toString() {
+    return 'Adress{street: $street, suit: $suit, city: $city, zipcode: $zipcode, geo: $geo}';
+  }
+
+  Adress.fromJson(Map<String,dynamic> addressMap){
+    Map<String,dynamic> geoMap = addressMap["geo"];
+    geo = Geo.fromJson(geoMap);
+    street = addressMap['street'];
+    suit = addressMap['suite'];
+    city = addressMap["city"];
+    zipcode = addressMap['zipcode'];
+  }
+}
+
+class Geo {
+  String? lon;
+
+  String? lati;
+
+  Geo({required this.lon, required this.lati});
+
+
+  @override
+  String toString() {
+    return 'Geo{lon: $lon, lati: $lati}';
+  }
+
+  Geo.fromJson(Map<String,dynamic> geoMap){
+    lon = geoMap["lat"];
+    lati = geoMap["lng"];
+  }
+}
+
